@@ -27,7 +27,6 @@
       var sindip, cosdip;
       var mag;
       var color = "#F0F8FF";
-      var count=0;
 
       function keyDownHandler(e) {
         if (e.key == "Right" || e.key == "ArrowRight") {
@@ -73,6 +72,9 @@
       const sock=io();
       document.addEventListener("keydown", keyDownHandler, false);
       document.addEventListener("keyup", keyUpHandler, false);
+      var Player1="NULL";
+        var Player2="NULL";
+        var clients=0;
       function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -121,37 +123,29 @@
         drawPaddle1();
         drawScore();
         drawScore1();
-        count=count+1;
        /* sock.on('message',(v)=>{
             x=v.ballx,
             y=v.bally,
             score=v.ballscore,
             score1=v.ballscore1
         }); */
-        sock.on('message1',(v1)=>{
-          if(count<=1000){
-          x=v1.ballx,
-          y=v1.bally
-          //score=0,
-          //score1=0 
-        }
-         // score=v.ballscore,
-         // score1=v.ballscore1
-          paddleX=v1.ballpaddleX,
-          paddleX1=v1.ballpaddleX1
+        sock.on("broadcast", (data) => {
+          Player1=data.ID1;
+          Player2=data.ID2;
+          clients=data.count;
         });
-        /*
-        const v={
-              ballx:x,
-              bally:y,
-              ballscore:score,
-              ballscore1:score1
-
-        }*/
-        /*
-        if(count<=1000){
-        sock.emit('message',v);
-        };*/
+        sock.on('message2',(rec)=>{
+          if(rec.ID==Player1){
+            x=rec.ballx
+            y=rec.bally
+            score=rec.ballscore
+            paddleX=rec.ballpaddleX
+          }else if(rec.ID==Player2){
+            score1=rec.ballscore1
+            paddleX1=rec.ballpaddleX1
+          }
+        });
+        
         //collision with wall
         if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
           dx = -dx;
@@ -213,17 +207,21 @@
          
         }
         const v1={
+          Identity:sock.id,
           ballx:x,
           bally:y,
-         // ballscore:score,
-         // ballscore1:score1,
+          ballscore:score,
+          ballscore1:score1,
           ballpaddleX:paddleX,
           ballpaddleX1:paddleX1
         }
+
         sock.emit('message1',v1);
         //movement of ball
+        if(clients>=2){
         x += dx;
         y += dy;
+        }
       }
 
       var interval = setInterval(draw, 10);
