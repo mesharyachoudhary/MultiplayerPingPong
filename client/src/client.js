@@ -7,8 +7,8 @@
       var ballRadius = 10;
       var x = canvas.width / 2;
       var y = canvas.height - 30;
-      var dx = 6;
-      var dy = -6;
+      var dx = 1;
+      var dy = -1;
       var dx1 = 0,
         dx2 = 0;
       var paddleHeight = 10;
