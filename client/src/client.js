@@ -7,8 +7,8 @@
       var ballRadius = 10;
       var x = canvas.width / 2;
       var y = canvas.height - 30;
-      var dx = 1;
-      var dy = -1;
+      var dx = 3;
+      var dy = -3;
       var dx1 = 0,
         dx2 = 0;
       var paddleHeight = 10;
@@ -123,21 +123,22 @@
         drawPaddle1();
         drawScore();
         drawScore1();
-       /* sock.on('message',(v)=>{
-            x=v.ballx,
-            y=v.bally,
-            score=v.ballscore,
-            score1=v.ballscore1
-        }); */
         sock.on("broadcast", (data) => {
           Player1=data.ID1;
           Player2=data.ID2;
           clients=data.count;
         });
+        var flag=true;
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
+            if(y<=40 || y>=760){
+            if(flag){
             x=rec.ballx
             y=rec.bally
+            flag=false}
+            }else{
+              flag=true;
+            }
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
@@ -165,11 +166,6 @@
             score += 1;
             dy = -dy;
           }
-          /*else {
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval); // Needed for Chrome to end game
-          }*/
         } else if (y + dy > canvas.height - ballRadius) {
           if (x > paddleX && x < paddleX + paddleWidth) {
             //score += 1;
