@@ -131,7 +131,7 @@
         var flag=true;
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            if(y<=40 || y>=760){
+            if(y<=40 || y>=560){
             if(flag){
             x=rec.ballx
             y=rec.bally
@@ -214,7 +214,7 @@
 
         sock.emit('message1',v1);
         //movement of ball
-        if(clients>=2){
+        if(clients==2){
         x += dx;
         y += dy;
         }
