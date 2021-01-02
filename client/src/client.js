@@ -27,7 +27,7 @@
       var sindip, cosdip;
       var mag;
       var color = "#F0F8FF";
-
+      var flag=0;
       function keyDownHandler(e) {
         if (e.key == "Right" || e.key == "ArrowRight") {
           rightPressed = true;
@@ -128,18 +128,25 @@
           Player2=data.ID2;
           clients=data.count;
         });
-        var flag=true;
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
+            if(rec.ballflag==1){
             dx=rec.ballvx
             dy=rec.ballvy
             x=rec.ballx
             y=rec.bally
+            flag=0;
+            }
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
-            dx=rec.ballvx
-            dy=rec.ballvy
+            if(rec.ballflag==-1){
+              dx=rec.ballvx
+              dy=rec.ballvy
+              x=rec.ballx
+              y=rec.bally
+              flag=0;
+              }
             score1=rec.ballscore1
             paddleX1=rec.ballpaddleX1
           }
@@ -150,6 +157,7 @@
           dx = -dx;
         }
         if (y + dy < ballRadius) {
+          flag++;
           if (x > paddleX1 && x < paddleX1 + paddleWidth1) {
             //score1 += 1;
             dip = (paddleX1 + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -165,6 +173,7 @@
             dy = -dy;
           }
         } else if (y + dy > canvas.height - ballRadius) {
+          flag--;
           if (x > paddleX && x < paddleX + paddleWidth) {
             //score += 1;
             dip = (paddleX + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -202,6 +211,7 @@
         }
         const v1={
           Identity:sock.id,
+          ballflag:flag,
           ballx:x,
           bally:y,
           ballvx:dx,
