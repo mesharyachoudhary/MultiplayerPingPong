@@ -155,7 +155,7 @@
           dx = -dx;
         }
         if (y + dy < ballRadius) {
-          flag++;
+          flag=1;
           if (x > paddleX1 && x < paddleX1 + paddleWidth1) {
             //score1 += 1;
             dip = (paddleX1 + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -171,7 +171,7 @@
             dy = -dy;
           }
         } else if (y + dy > canvas.height - ballRadius) {
-          flag--;
+          flag=-1;
           if (x > paddleX && x < paddleX + paddleWidth) {
             //score += 1;
             dip = (paddleX + paddleWidth / 2 - x) / (paddleWidth / 2);
