@@ -131,12 +131,15 @@
         var flag=true;
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            
+            dx=rec.ballvx
+            dy=rec.ballvy
             x=rec.ballx
             y=rec.bally
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
+            dx=rec.ballvx
+            dy=rec.ballvy
             score1=rec.ballscore1
             paddleX1=rec.ballpaddleX1
           }
@@ -201,6 +204,8 @@
           Identity:sock.id,
           ballx:x,
           bally:y,
+          ballvx:dx,
+          ballvy:dy,
           ballscore:score,
           ballscore1:score1,
           ballpaddleX:paddleX,

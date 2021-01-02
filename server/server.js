@@ -49,6 +49,8 @@ io.on('connection',(sock)=>{
            ID:Player1,
            ballx:v1.ballx,
            bally:v1.bally,
+           ballvx:v1.ballvx,
+           ballvy:v1.ballvy,
            ballpaddleX:v1.ballpaddleX,
            ballscore:v1.ballscore
            
@@ -56,6 +58,8 @@ io.on('connection',(sock)=>{
     }else{
         sock.broadcast.emit('message2',{
             ID:Player2,
+            ballvx:v1.ballvx,
+            ballvy:v1.ballvy,
             ballpaddleX1:v1.ballpaddleX1,
             ballscore1:v1.ballscore1
             
