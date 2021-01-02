@@ -131,14 +131,9 @@
         var flag=true;
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            if(y<=40 || y>=560){
-            if(flag){
+            
             x=rec.ballx
             y=rec.bally
-            flag=false}
-            }else{
-              flag=true;
-            }
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
