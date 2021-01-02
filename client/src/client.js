@@ -82,10 +82,8 @@
         });
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            
             x=rec.ballx
             y=rec.bally
-            
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
@@ -147,7 +145,7 @@
           dx = -dx;
         }
         if (y + dy < ballRadius) {
-          flag=1;
+          //flag=1;
           if (x > paddleX1 && x < paddleX1 + paddleWidth1) {
             //score1 += 1;
             dip = (paddleX1 + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -163,7 +161,7 @@
             dy = -dy;
           }
         } else if (y + dy > canvas.height - ballRadius) {
-          flag=-1;
+          //flag=-1;
           if (x > paddleX && x < paddleX + paddleWidth) {
             //score += 1;
             dip = (paddleX + paddleWidth / 2 - x) / (paddleWidth / 2);
