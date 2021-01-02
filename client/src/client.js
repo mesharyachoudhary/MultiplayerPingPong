@@ -82,7 +82,7 @@
         });
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            if(rec.ballflag==1 && y>=40 && y<=560){
+            if(rec.ballflag==1 && rec.bally>=40 && rec.bally<=560){
             dx=rec.ballvx
             dy=rec.ballvy
             x=rec.ballx
@@ -92,7 +92,7 @@
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
-            if(rec.ballflag==-1 && y>=40 && y<=560){
+            if(rec.ballflag==-1 && rec.bally>=40 && rec.bally<=560){
               dx=rec.ballvx
               dy=rec.ballvy
               flag=0;
