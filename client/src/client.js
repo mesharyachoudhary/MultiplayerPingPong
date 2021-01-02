@@ -75,6 +75,34 @@
       var Player1="NULL";
         var Player2="NULL";
         var clients=0;
+        sock.on("broadcast", (data) => {
+          Player1=data.ID1;
+          Player2=data.ID2;
+          clients=data.count;
+        });
+        sock.on('message2',(rec)=>{
+          if(rec.ID==Player1){
+            if(rec.ballflag==1){
+            dx=rec.ballvx
+            dy=rec.ballvy
+            x=rec.ballx
+            y=rec.bally
+            flag=0;
+            }
+            score=rec.ballscore
+            paddleX=rec.ballpaddleX
+          }else if(rec.ID==Player2){
+            if(rec.ballflag==-1){
+              dx=rec.ballvx
+              dy=rec.ballvy
+              x=rec.ballx
+              y=rec.bally
+              flag=0;
+              }
+            score1=rec.ballscore1
+            paddleX1=rec.ballpaddleX1
+          }
+        });
       function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -123,34 +151,6 @@
         drawPaddle1();
         drawScore();
         drawScore1();
-        sock.on("broadcast", (data) => {
-          Player1=data.ID1;
-          Player2=data.ID2;
-          clients=data.count;
-        });
-        sock.on('message2',(rec)=>{
-          if(rec.ID==Player1){
-            if(rec.ballflag==1){
-            dx=rec.ballvx
-            dy=rec.ballvy
-            x=rec.ballx
-            y=rec.bally
-            flag=0;
-            }
-            score=rec.ballscore
-            paddleX=rec.ballpaddleX
-          }else if(rec.ID==Player2){
-            if(rec.ballflag==-1){
-              dx=rec.ballvx
-              dy=rec.ballvy
-              x=rec.ballx
-              y=rec.bally
-              flag=0;
-              }
-            score1=rec.ballscore1
-            paddleX1=rec.ballpaddleX1
-          }
-        });
         
         //collision with wall
         if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
