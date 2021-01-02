@@ -95,8 +95,6 @@
             if(rec.ballflag==-1){
               dx=rec.ballvx
               dy=rec.ballvy
-              x=rec.ballx
-              y=rec.bally
               flag=0;
               }
             score1=rec.ballscore1
