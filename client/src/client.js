@@ -82,10 +82,8 @@
         });
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            if(rec.bally<=100 || rec.bally>=500){
             x=rec.ballx
             y=rec.bally
-            }
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
