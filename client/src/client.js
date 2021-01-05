@@ -82,8 +82,11 @@
         });
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
+            if(flag){
             x=rec.ballx
             y=rec.bally
+            dx=rec.ballx
+            dy=rec.bally}
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
@@ -91,6 +94,15 @@
             paddleX1=rec.ballpaddleX1
           }
         });
+       /* sock.on('message3',(rec)=>{
+          if(rec.ID==Player1){ 
+            score=rec.ballscore
+            paddleX=rec.ballpaddleX
+          }else if(rec.ID==Player2){
+            score1=rec.ballscore1
+            paddleX1=rec.ballpaddleX1
+          }
+        }); */
       function drawBall() {
         ctx.beginPath();
         ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
@@ -145,7 +157,7 @@
           dx = -dx;
         }
         if (y + dy < ballRadius) {
-          //flag=1;
+          flag=1;
           if (x > paddleX1 && x < paddleX1 + paddleWidth1) {
             //score1 += 1;
             dip = (paddleX1 + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -161,7 +173,7 @@
             dy = -dy;
           }
         } else if (y + dy > canvas.height - ballRadius) {
-          //flag=-1;
+          flag=1;
           if (x > paddleX && x < paddleX + paddleWidth) {
             //score += 1;
             dip = (paddleX + paddleWidth / 2 - x) / (paddleWidth / 2);
@@ -181,6 +193,7 @@
             document.location.reload();
             clearInterval(interval); // Needed for Chrome to end game
           }*/
+        
         }
         // control of paddle
         if (rightPressed && paddleX < canvas.width - paddleWidth) {
@@ -209,8 +222,8 @@
           ballpaddleX:paddleX,
           ballpaddleX1:paddleX1
         }
-
         sock.emit('message1',v1);
+       
         //movement of ball
         if(clients==2){
         x += dx;
