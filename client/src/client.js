@@ -223,7 +223,7 @@
           ballpaddleX1:paddleX1
         }
         sock.emit('message1',v1);
-       
+        flag=0;
         //movement of ball
         if(clients==2){
         x += dx;
