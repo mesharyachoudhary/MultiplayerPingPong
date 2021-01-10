@@ -82,11 +82,12 @@
         });
         sock.on('message2',(rec)=>{
           if(rec.ID==Player1){
-            if(flag){
+            
+             // console.log(flag);
             x=rec.ballx
             y=rec.bally
             dx=rec.ballx
-            dy=rec.bally}
+            dy=rec.bally
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
@@ -224,6 +225,7 @@
         }
         sock.emit('message1',v1);
         flag=0;
+        //console.log("omuamua");
         //movement of ball
         if(clients==2){
         x += dx;
