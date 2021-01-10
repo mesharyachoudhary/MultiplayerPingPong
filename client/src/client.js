@@ -86,8 +86,8 @@
              // console.log(flag);
             x=rec.ballx
             y=rec.bally
-            dx=rec.ballx
-            dy=rec.bally
+            //dx=rec.ballx
+            //dy=rec.bally
             score=rec.ballscore
             paddleX=rec.ballpaddleX
           }else if(rec.ID==Player2){
